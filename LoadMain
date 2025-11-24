@@ -646,7 +646,7 @@ function Melatonin.LoadingEffect(duration, player, frameConfigs, mainTemplate, g
 
 		-- Load Button Logic
 		Load.InputBegan:Connect(function(input)
-			if input.UserInputType ~= Enum.UserInputType.MouseButton1 then return end
+			if input.UserInputType ~= if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then return end
 			local active = getgenv().ActiveFrame
 			if not active then return end
 			local frameCallback = LoaderHandler.FrameCallbacks 
@@ -670,7 +670,7 @@ function Melatonin.LoadingEffect(duration, player, frameConfigs, mainTemplate, g
 		})
 
 		Close.InputBegan:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			if input.UserInputType == if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 				Melatonin.CloseGuiEffect(newUI)
 			end
 		end)
@@ -729,8 +729,7 @@ function Melatonin.MakeDraggable(guiObject)
 	local startPos = nil
 
 	guiObject.InputBegan:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			dragging = true
+		if input.UserInputType == if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then			dragging = true
 			dragStart = UserInputService:GetMouseLocation()
 			startPos = guiObject.AbsolutePosition
 
